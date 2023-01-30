@@ -27,5 +27,13 @@ namespace PurchaseOrder.Controllers
 
             return View(ProductModelList);
         }
+
+        [HttpPost]
+        public IActionResult Index(List<ProductModel> e)
+        {
+            
+            
+            return View();
+        }
     }
 }

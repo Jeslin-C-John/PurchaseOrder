@@ -1,12 +1,23 @@
-﻿@model List<PurchaseOrder.Models.PurchaseModel>
+﻿@model List<PurchaseOrder.Models.ProductModel>
 
 <form method="post">
+    
+    @{
+        string? Name=null;
+        string? Phone = null;
+        string? Address = null;
+    }
+
+    <input type="text" asp-for="@Name" placeholder="Name" />
+    <input type="text" asp-for="@Address" placeholder="Address" />
+    <input type="text" asp-for="@Phone" placeholder="Phone" />
+
     <table class="table">
         <thead>
             <tr>
                 <th>Product Name</th>
-                <th>Quantity</th>
                 <th>Price</th>
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
@@ -14,14 +25,20 @@
             {
                 <tr>
                     <td>@Instance.ProductName</td>
-                    <td>
-                        <input type="number" asp-for="Orders[i].Quantity" />
-                        <input type="hidden" asp-for="Orders[i].ProductId" value="@Instance.ProductId" />
-                    </td>
                     <td>@Instance.Price</td>
+                    <td>
+                        <input type="number" asp-for="@Instance.Quantity" />
+                        @*<input type="hidden" asp-for="@Instance.ProductId" value="@Instance.ProductId" />*@
+
+                        <input type="hidden" asp-for="@Instance.Name" value="@Name" />
+                        <input type="hidden" asp-for="@Instance.Address" value="@Address" />
+                        <input type="hidden" asp-for="@Instance.Phone" value="@Phone" />
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
     <button type="submit">Submit Order</button>
 </form>
+
+
