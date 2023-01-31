@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseBilling.Data;
 using PurchaseOrder.Models;
+using System.Runtime.CompilerServices;
 
 namespace PurchaseOrder.Controllers
 {
@@ -20,6 +21,7 @@ namespace PurchaseOrder.Controllers
                 ProductModel ProductModelObj= new ProductModel();
                 ProductModelObj.ProductName = ProductList[i].ProductName;
                 ProductModelObj.Price= ProductList[i].Price;
+                ProductModelObj.ProductId= ProductList[i].ProductId;    
                 
                 ProductModelList.Add(ProductModelObj);
             }
@@ -29,7 +31,7 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(List<ProductModel> e)
+        public IActionResult Index(List<ProductModel> Instance)
         {
             
             
