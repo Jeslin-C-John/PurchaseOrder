@@ -2,15 +2,10 @@
 
 <form method="post" asp-controller="Home" asp-action="Index">
     
-    @{
-        string? Name=null;
-        string? Phone = null;
-        string? Address = null;
-    }
 
-    <input type="text" name="Name" value="@Name" placeholder="Name" />
-    <input type="text" name="Address" value="@Address" placeholder="Address" />
-    <input type="tel" name="Phone" value="@Phone" placeholder="Phone" />
+    @Html.TextBoxFor(Model => Model[0].Name, new { @class = "form-control", @placeholder="Name" })
+    @Html.TextBoxFor(Model => Model[0].Address, new { @class = "form-control", @placeholder="Address" })
+    @Html.TextBoxFor(Model => Model[0].Phone, new { @class = "form-control", @placeholder="Phone" })
 
     <table class="table">
         <thead>
@@ -29,19 +24,22 @@
                     <td>@Instance.ProductName</td>
                     <td>@Instance.Price</td>
                     <td>
-                        <input type="number" asp-for="@Instance.Quantity"  />
+                        
+                        @Html.TextBoxFor(Model => Model[i].Quantity, new { @class = "form-control", placeholder = "Quantity" })
 
-                        <input type="hidden" asp-for="@Instance.ProductId" value="@Instance.ProductId" />
-
-                        <input type="hidden" asp-for="@Instance.Name" value="@Name" />
-                        <input type="hidden" asp-for="@Instance.Address" value="@Address" />
-                        <input type="hidden" asp-for="@Instance.Phone" value="@Phone" />
+                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[i].ProductId })
+                        
+                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Name })
+                        
+                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Address })
+                       
+                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Phone })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <button type="submit">Submit Order</button>
+    <input class="btn btn-primary" type="submit" value="Submit" />
 </form>
 
 

@@ -41,8 +41,6 @@ namespace PurchaseOrder.Controllers
                     submittedList.Add(new ParentModel
                     {
                         ProductId = model[i].ProductId,
-                        ProductName = model[i].ProductName,
-                        Price = model[i].Price,
                         Quantity = model[i].Quantity,
                         Name = model[i].Name,
                         Phone = model[i].Phone,
