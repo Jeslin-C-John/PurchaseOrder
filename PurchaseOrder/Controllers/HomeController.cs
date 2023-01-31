@@ -14,27 +14,42 @@ namespace PurchaseOrder.Controllers
             var ProductList = Context.Products
             .ToList();
 
-            var ProductModelList = new List<Models.ProductModel>();
+            var ParentModelList = new List<Models.ParentModel>();
 
             for (int i = 0; i < ProductList.Count; i++)
             {
-                ProductModel ProductModelObj= new ProductModel();
-                ProductModelObj.ProductName = ProductList[i].ProductName;
-                ProductModelObj.Price= ProductList[i].Price;
-                ProductModelObj.ProductId= ProductList[i].ProductId;    
+                ParentModel ParentModelObj= new ParentModel();
+                ParentModelObj.ProductName = ProductList[i].ProductName;
+                ParentModelObj.Price= ProductList[i].Price;
+                ParentModelObj.ProductId= ProductList[i].ProductId;    
                 
-                ProductModelList.Add(ProductModelObj);
+                ParentModelList.Add(ParentModelObj);
             }
 
 
-            return View(ProductModelList);
+            return View(ParentModelList);
         }
 
         [HttpPost]
-        public IActionResult Index(List<ProductModel> Instance)
+        public IActionResult Index(List<ParentModel> model)
         {
-            
-            
+            var submittedList = new List<ParentModel>();
+            for (int i = 0; i < model.Count; i++)
+            {
+                if (model[i].Quantity > 0)
+                {
+                    submittedList.Add(new ParentModel
+                    {
+                        ProductId = model[i].ProductId,
+                        ProductName = model[i].ProductName,
+                        Price = model[i].Price,
+                        Quantity = model[i].Quantity,
+                        Name = model[i].Name,
+                        Phone = model[i].Phone,
+                        Address = model[i].Address
+                    });
+                }
+            }
             return View();
         }
     }
