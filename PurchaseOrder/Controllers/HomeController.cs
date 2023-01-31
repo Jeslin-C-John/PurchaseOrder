@@ -38,17 +38,52 @@ namespace PurchaseOrder.Controllers
             {
                 if (model[i].Quantity > 0)
                 {
+                    
+
                     submittedList.Add(new ParentModel
                     {
                         ProductId = model[i].ProductId,
                         Quantity = model[i].Quantity,
-                        Name = model[i].Name,
-                        Phone = model[i].Phone,
-                        Address = model[i].Address
+                        Name = model[0].Name,
+                        Phone = model[0].Phone,
+                        Address = model[0].Address
                     });
                 }
             }
-            return View();
+
+
+            
+
+
+            DboContext Context = new DboContext();
+            UserModel User = new UserModel();
+            User.UserName = submittedList[0].Name;
+            User.Address = submittedList[0].Address;
+            User.Phone = submittedList[0].Phone;
+            Context.Add(User);
+            Context.SaveChanges();
+
+            var ProductList = Context.Users
+            .Where(s => s.UserName== User.UserName)
+            .ToList();
+
+            var UserId = ProductList[0].UserId;
+
+            for (int i = 0; i < submittedList.Count; i++)
+            {
+                PurchaseModel Purchase = new PurchaseModel();
+                Purchase.ProductId = submittedList[i].ProductId;
+                Purchase.Quantity = submittedList[i].Quantity;
+                Purchase.UserID = UserId;
+                Purchase.BillDate=DateTime.Now;
+                Context.Add(Purchase);
+                Context.SaveChanges();
+            }
+            
+
+
+
+            return View("Success");
         }
     }
 }

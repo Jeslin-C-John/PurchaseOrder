@@ -29,11 +29,11 @@
 
                         @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[i].ProductId })
                         
-                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Name })
+                        @Html.TextBoxFor(Model => Model[i].Name, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Name })
                         
-                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Address })
+                        @Html.TextBoxFor(Model => Model[i].Address, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Address })
                        
-                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Phone })
+                        @Html.TextBoxFor(Model => Model[i].Phone, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Phone })
                     </td>
                 </tr>
             }
