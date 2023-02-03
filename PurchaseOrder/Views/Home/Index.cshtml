@@ -1,45 +1,52 @@
-﻿@model List<PurchaseOrder.Models.ParentModel>
+﻿@model ParentModel
 
-<form method="post" asp-controller="Home" asp-action="Index">
-    
+@using (Html.BeginForm())
+{
+            <div>
+        @Html.TextBoxFor(model => model.UserType.UserName, new { @class = "form-control input-sm", placeholder = "Name" })
 
-    @Html.TextBoxFor(Model => Model[0].UserName, new { @class = "form-control", @placeholder="Name" })
-    @Html.TextBoxFor(Model => Model[0].Address, new { @class = "form-control", @placeholder="Address" })
-    @Html.TextBoxFor(Model => Model[0].Phone, new { @class = "form-control", @placeholder="Phone" })
+            </div>
+            <br />
+            <div>
+        @Html.TextBoxFor(model => model.UserType.Address, new { @class = "form-control input-sm", placeholder = "Address" })
+            </div>
+            <br />
+            <div>
+        @Html.TextBoxFor(model => model.UserType.Phone, new { @class = "form-control", placeholder = "Phone" })
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
+            </div>
+    <div>
+        <br />
 
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                var Instance = Model[i];
+
+        <table id="table_id" class="table">
+            <thead class="thead-light">
                 <tr>
-                    <td>@Instance.ProductName</td>
-                    <td>@Instance.Price</td>
-                    <td>
-                        
-                        @Html.TextBoxFor(Model => Model[i].Quantity, new { @class = "form-control", placeholder = "Quantity" })
 
-                        @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[i].ProductId })
-                        
-                        @Html.TextBoxFor(Model => Model[i].ProductName, new { @class = "form-control", @Type = "Hidden", @value=Model[0].UserName })
-                        
-                        @Html.TextBoxFor(Model => Model[i].Address, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Address })
-                       
-                        @Html.TextBoxFor(Model => Model[i].Phone, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Phone })
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        Nothing
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <input class="btn btn-primary" type="submit" value="Submit" />
-</form>
 
+            </tbody>
 
+            
+
+        </table>
+        
+        
+
+        <input class="btn-primary" type="submit" value="Submit" />
+            </div>
+
+}
