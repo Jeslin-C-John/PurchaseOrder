@@ -3,7 +3,7 @@
 <form method="post" asp-controller="Home" asp-action="Index">
     
 
-    @Html.TextBoxFor(Model => Model[0].Name, new { @class = "form-control", @placeholder="Name" })
+    @Html.TextBoxFor(Model => Model[0].UserName, new { @class = "form-control", @placeholder="Name" })
     @Html.TextBoxFor(Model => Model[0].Address, new { @class = "form-control", @placeholder="Address" })
     @Html.TextBoxFor(Model => Model[0].Phone, new { @class = "form-control", @placeholder="Phone" })
 
@@ -29,7 +29,7 @@
 
                         @Html.TextBoxFor(Model => Model[i].ProductId, new { @class = "form-control", @Type = "Hidden", @value=Model[i].ProductId })
                         
-                        @Html.TextBoxFor(Model => Model[i].Name, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Name })
+                        @Html.TextBoxFor(Model => Model[i].ProductName, new { @class = "form-control", @Type = "Hidden", @value=Model[0].UserName })
                         
                         @Html.TextBoxFor(Model => Model[i].Address, new { @class = "form-control", @Type = "Hidden", @value=Model[0].Address })
                        
