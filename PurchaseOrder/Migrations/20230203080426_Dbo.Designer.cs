@@ -12,7 +12,7 @@ using PurchaseBilling.Data;
 namespace PurchaseOrder.Migrations
 {
     [DbContext(typeof(DboContext))]
-    [Migration("20230130080301_Dbo")]
+    [Migration("20230203080426_Dbo")]
     partial class Dbo
     {
         /// <inheritdoc />
@@ -24,6 +24,28 @@ namespace PurchaseOrder.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("PurchaseOrder.Models.BillModel", b =>
+                {
+                    b.Property<int>("BillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillId"));
+
+                    b.Property<DateTime>("BillDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BillId");
+
+                    b.ToTable("Bills");
+                });
 
             modelBuilder.Entity("PurchaseOrder.Models.ProductModel", b =>
                 {
@@ -52,16 +74,16 @@ namespace PurchaseOrder.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseId"));
 
-                    b.Property<DateTime>("BillDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BillId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("PurchaseId");

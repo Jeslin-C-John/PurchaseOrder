@@ -9,13 +9,5 @@ namespace PurchaseOrder.Models
         public int ProductId { get; set; }
         public string? ProductName { get; set; }
         public int Price { get; set; }
-        [NotMapped]
-        public int Quantity { get; set; }
-        [NotMapped]
-        public string? Name { get; set; }
-        [NotMapped]
-        public string? Phone { get; set; }
-        [NotMapped]
-        public string? Address { get; set; }
     }
 }
