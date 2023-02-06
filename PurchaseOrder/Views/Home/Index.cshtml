@@ -2,51 +2,92 @@
 
 @using (Html.BeginForm())
 {
-            <div>
+    <div>
         @Html.TextBoxFor(model => model.UserType.UserName, new { @class = "form-control input-sm", placeholder = "Name" })
 
-            </div>
-            <br />
-            <div>
+    </div>
+    <br />
+    <div>
         @Html.TextBoxFor(model => model.UserType.Address, new { @class = "form-control input-sm", placeholder = "Address" })
-            </div>
-            <br />
-            <div>
+    </div>
+    <br />
+    <div>
         @Html.TextBoxFor(model => model.UserType.Phone, new { @class = "form-control", placeholder = "Phone" })
 
-            </div>
+    </div>
     <div>
         <br />
 
-
-        <table id="table_id" class="table">
-            <thead class="thead-light">
-                <tr>
-
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-
-                </tr>
-            </thead>
+        <table id="table-data">
+            <tr>
+                <td>Product</td>
+                <td>Quantity</td>
+            </tr>
 
             <tbody>
 
-                <tr>
+                <tr class='tr_clone'>
                     <td>
-                        Nothing
-                    </td>
-                </tr>
+                        <select asp-for='PurchaseList[0].ProductId' class='form-control'>
 
+                            @foreach (var item in Model.ProductList)
+                            {
+                                <option value='@item.ProductId'> @item.ProductName</option>
+
+
+                            }
+                        </select>
+                    </td>
+
+
+
+
+                    <td> @Html.TextBoxFor(model => model.PurchaseList[0].Quantity)</td>
+
+                    <td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td>
+
+
+                </tr>
             </tbody>
+        </table>
+
+
+        <input type="button" name="add" value="Add" class="tr_clone_add">
+
+        <input class="btn-primary" type="submit" value="Submit" />
+
+    </div>
+
+}
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script>
+
+        var i = 1;
+        $(document).ready(function () {
+            var destTable = $("#table-data");
 
             
 
-        </table>
-        
-        
+            $(".tr_clone_add").click(function () {
+                
+                var newRow = $("<tr class='tr_clone'><td><select asp-for='PurchaseList[" + i + "].ProductId' class='form-control'>@foreach (var item in Model.ProductList){<option value='@item.ProductId'> @item.ProductName</option>}</select></td><td> @Html.TextBoxFor(model => model.PurchaseList[" +i+ "].Quantity)</td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td></tr>");
+                
+                $("#table-data").append(newRow);
+            });
+        });
 
-        <input class="btn-primary" type="submit" value="Submit" />
-            </div>
+
+    </script>
+
+
+    <script>
+        $('#table-data').on('click', '.tr_clone_remove', function () {
+            $(this).closest('tr').remove()
+        });
+
+    </script>
+
 
 }
