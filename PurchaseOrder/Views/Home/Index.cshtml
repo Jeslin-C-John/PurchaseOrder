@@ -52,7 +52,7 @@
             $(".tr_clone_add").click(function () {
                 
                 var dropdown="@foreach (var item in Model.ProductList){<option value='@item.ProductId'> @item.ProductName</option>}";
-                        var newRow = $("<tr class='tr_clone'><td><select asp-for='PurchaseList[" + i + "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td></tr>");
+                        var newRow = $("<tr class='tr_clone'><td><select name='PurchaseList[" +i+ "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td></tr>");
                 
                 $("#table-data").append(newRow);
                 i++;

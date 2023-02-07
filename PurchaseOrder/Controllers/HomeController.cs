@@ -23,7 +23,7 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(ParentModel ParentModelObj)
+        public IActionResult Index(ParentModel? ParentModelObj)
         {
             
 
