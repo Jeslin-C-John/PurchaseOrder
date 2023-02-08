@@ -50,9 +50,10 @@
             
 
             $(".tr_clone_add").click(function () {
-                
-                var dropdown="@foreach (var item in Model.ProductList){<option value='@item.ProductId'> @item.ProductName</option>}";
-                        var newRow = $("<tr class='tr_clone'><td><select name='PurchaseList[" +i+ "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td></tr>");
+
+                var hidden = "<input type='hidden' name='PurchaseList[" + i + "].Quantity' value='0' />"
+                var dropdown="@foreach (var item in Model.ProductList){<option value='@item.ProductId'> @item.ProductName - Rs.@item.Price</option>}";
+                        var newRow = $("<tr class='tr_clone'><td><select name='PurchaseList[" +i+ "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td></tr>"+hidden);
                 
                 $("#table-data").append(newRow);
                 i++;
