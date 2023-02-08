@@ -12,7 +12,7 @@ using PurchaseBilling.Data;
 namespace PurchaseOrder.Migrations
 {
     [DbContext(typeof(DboContext))]
-    [Migration("20230203080426_Dbo")]
+    [Migration("20230208124027_Dbo")]
     partial class Dbo
     {
         /// <inheritdoc />
@@ -27,19 +27,19 @@ namespace PurchaseOrder.Migrations
 
             modelBuilder.Entity("PurchaseOrder.Models.BillModel", b =>
                 {
-                    b.Property<int>("BillId")
+                    b.Property<int?>("BillId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("BillId"));
 
-                    b.Property<DateTime>("BillDate")
+                    b.Property<DateTime?>("BillDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TotalAmount")
+                    b.Property<int?>("TotalAmount")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("BillId");
@@ -49,13 +49,13 @@ namespace PurchaseOrder.Migrations
 
             modelBuilder.Entity("PurchaseOrder.Models.ProductModel", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ProductId"));
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -68,22 +68,19 @@ namespace PurchaseOrder.Migrations
 
             modelBuilder.Entity("PurchaseOrder.Models.PurchaseModel", b =>
                 {
-                    b.Property<int>("PurchaseId")
+                    b.Property<int?>("PurchaseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("PurchaseId"));
 
-                    b.Property<int>("Amount")
+                    b.Property<int?>("BillId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BillId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("PurchaseId");
@@ -93,11 +90,11 @@ namespace PurchaseOrder.Migrations
 
             modelBuilder.Entity("PurchaseOrder.Models.UserModel", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("UserId"));
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");

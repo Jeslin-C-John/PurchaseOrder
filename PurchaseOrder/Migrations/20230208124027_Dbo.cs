@@ -17,9 +17,9 @@ namespace PurchaseOrder.Migrations
                 {
                     BillId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BillDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TotalAmount = table.Column<int>(type: "int", nullable: false)
+                    BillDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    TotalAmount = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace PurchaseOrder.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,10 +46,9 @@ namespace PurchaseOrder.Migrations
                 {
                     PurchaseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BillId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false)
+                    BillId = table.Column<int>(type: "int", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

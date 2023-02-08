@@ -14,7 +14,7 @@ namespace PurchaseOrder.Controllers
             var ProductList = Context.Products
             .ToList();
 
-            
+
             ParentModel ParentModelObj = new ParentModel();
 
             ParentModelObj.ProductList = ProductList;
@@ -25,44 +25,71 @@ namespace PurchaseOrder.Controllers
         [HttpPost]
         public IActionResult Index(ParentModel? ParentModelObj)
         {
-            int? BillTotal=0;
+            DboContext Context = new DboContext();
+
+            int? BillTotal = 0;
 
             for (int i = 0; i < ParentModelObj.PurchaseList.Count; i++)
             {
-                if (ParentModelObj.PurchaseList[i].Quantity > 1)
+                if (ParentModelObj.PurchaseList[i].Quantity > 0)
                 {
-                    BillTotal = BillTotal + ParentModelObj.PurchaseList[i].Amount * ParentModelObj.PurchaseList[i].Quantity;
+                    var ProductDetails = Context.Products
+                        .Where(s => s.ProductId == ParentModelObj.PurchaseList[i].ProductId)
+                        .ToList();
+
+                    BillTotal = BillTotal + ProductDetails[0].Price * ParentModelObj.PurchaseList[i].Quantity;
                 }
             }
-
-            DboContext Context = new DboContext();
-            UserModel UserInstance = new UserModel()
-            {
-                UserName=ParentModelObj.UserType.UserName,
-                Address=ParentModelObj.UserType.Address,
-                Phone=ParentModelObj.UserType.Phone,
-            };
-            Context.Add(UserInstance);
-            Context.SaveChanges();
 
             var UserDetails = Context.Users
            .Where(s => s.Phone == ParentModelObj.UserType.Phone)
            .ToList();
 
-            BillModel BillInstance= new BillModel()
+            if (UserDetails.Count == 0)
             {
-                BillDate= DateTime.Now,
-                UserId= ParentModelObj.UserType.UserId,
+
+                UserModel UserInstance = new UserModel()
+                {
+                    UserName = ParentModelObj.UserType.UserName,
+                    Address = ParentModelObj.UserType.Address,
+                    Phone = ParentModelObj.UserType.Phone,
+                };
+                Context.Add(UserInstance);
+                Context.SaveChanges();
+
+                UserDetails = Context.Users
+               .Where(s => s.Phone == ParentModelObj.UserType.Phone)
+               .ToList();
+
+            }
+
+            BillModel BillInstance = new BillModel()
+            {
+                BillDate = DateTime.Now,
+                UserId = UserDetails[0].UserId,
+                TotalAmount = BillTotal
 
             };
-            Context.Add(UserInstance);
+            Context.Add(BillInstance);
             Context.SaveChanges();
 
-            for (int i=0;i<ParentModelObj.PurchaseList.Count;i++)
-            {
-                if (ParentModelObj.PurchaseList[i].Quantity > 1)
-                {
+            var BillDetails = Context.Bills
+           .Where(s => s.UserId == UserDetails[0].UserId)
+           .OrderByDescending(s => s.BillId)
+           .ToList();
 
+            for (int i = 0; i < ParentModelObj.PurchaseList.Count; i++)
+            {
+                if (ParentModelObj.PurchaseList[i].Quantity > 0)
+                {
+                    PurchaseModel PurchaseInstance = new PurchaseModel()
+                    {
+                        BillId = BillDetails[0].BillId,
+                        ProductId = ParentModelObj.PurchaseList[i].ProductId,
+                        Quantity = ParentModelObj.PurchaseList[i].Quantity
+                    };
+                    Context.Add(PurchaseInstance);
+                    Context.SaveChanges();
                 }
             }
 
