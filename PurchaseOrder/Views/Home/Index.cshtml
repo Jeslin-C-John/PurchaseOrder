@@ -25,8 +25,6 @@
             </tr>
 
             <tbody>
-
-                
             </tbody>
         </table>
 
@@ -47,29 +45,31 @@
         $(document).ready(function () {
             var destTable = $("#table-data");
 
-            
+
 
             $(".tr_clone_add").click(function () {
 
-                var hidden = "<input type='hidden' name='PurchaseList.Index' value = '"+ i + "' /> ";
+                //var hidden = "<input type='hidden' name='PurchaseList.Index' value = '" + i + "' /> ";
                 //var hidden = "<input type='hidden' name='PurchaseList[" + i + "].Quantity' value='0' />"
                 var dropdown="@foreach (var item in Model.ProductList){<option value='@item.ProductId'> @item.ProductName - Rs.@item.Price</option>}";
-                        var newRow = $("<tr class='tr_clone'><td><select name='PurchaseList[" +i+ "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td><td>"+hidden+"</td></tr>");
-                
+                        var newRow = $("<tr class='tr_clone'><td><select name='PurchaseList[" +i+ "].ProductId' class='form-control'>" + dropdown + "</select></td><td> <input id='StudentName' name='PurchaseList[" +i+ "].Quantity' type='text' value='' /></td><td><input type='button' name='remove' value='Remove' class='tr_clone_remove'></td><td>"+"</td></tr>");
+
                 $("#table-data").append(newRow);
                 i++;
+                $('#table-data tr.tr_clone').each(function (i) {
+                    $(this).find("select").attr("name", "PurchaseList[" + i + "].ProductId");
+                    $(this).find("input[type='text']").attr("name", "PurchaseList[" + i + "].Quantity");
+                });
+            });
+            $('#table-data').on('click', '.tr_clone_remove', function () {
+                $(this).closest('tr').remove();
+                $('#table-data tr.tr_clone').each(function (i) {
+                    $(this).find("select").attr("name", "PurchaseList[" + i + "].ProductId");
+                    $(this).find("input[type='text']").attr("name", "PurchaseList[" + i + "].Quantity");
+                });
             });
         });
 
-
-    </script>
-
-
-    <script>
-        $('#table-data').on('click', '.tr_clone_remove', function () {
-            $(this).closest('tr').remove()
-            
-        });
 
     </script>
 
